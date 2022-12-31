@@ -76,8 +76,17 @@ app.get('/movies/read/id/:name', (req, res) => {
     }
 })
 
-app.get('/movies/update', (req, res) => {
-    
+app.get('/movies/update/:name', (req, res) => {
+    const name = parseInt(req.params.name)
+    if (name > movies.length) {
+        res.status(404).json({status:404, error:true, message:`the movie ${name} does not exist`})
+    } else {
+        const movie = movies[name - 1]
+        if (req.query.title) movie.title = req.query.title
+        if (req.query.rating) movie.rating = req.query.rating
+        if (req.query.year) movie.year = req.query.year
+        res.status(200).json({status: 200, data: movies})
+    }
 })
 
 app.get('/movies/delete/:name', (req, res) => {
