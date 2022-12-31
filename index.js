@@ -35,7 +35,7 @@ app.get('/search', (req, res) => {
     }
 })
 
-app.get('/movies/create', (req, res) => {
+app.post('/movies/create', (req, res) => {
     const title = req.query.title
     const year = req.query.year
     const rating = req.query.rating || 4
@@ -76,7 +76,7 @@ app.get('/movies/read/id/:name', (req, res) => {
     }
 })
 
-app.get('/movies/update/:name', (req, res) => {
+app.post('/movies/update/:name', (req, res) => {
     const name = parseInt(req.params.name)
     if (name > movies.length) {
         res.status(404).json({status:404, error:true, message:`the movie ${name} does not exist`})
@@ -89,7 +89,7 @@ app.get('/movies/update/:name', (req, res) => {
     }
 })
 
-app.get('/movies/delete/:name', (req, res) => {
+app.delete('/movies/delete/:name', (req, res) => {
     const name = parseInt(req.params.name)
     if (name > movies.length) {
         res.status(404).json({status:404, error:true, message:`the movie ${name} does not exist`})
