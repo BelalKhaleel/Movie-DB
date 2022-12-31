@@ -58,6 +58,15 @@ app.get('/movies/read/by-title', (req, res) => {
     res.json({status:200, data: movies })
 })
 
+app.get('/movies/read/id/:name', (req, res) => {
+    let requestedMovie = movies.filter((c) => c.title === req.params.name);
+    if (requestedMovie.length === 0) {
+        res.status(404).json({status:404, error:true, message:`the movie ${req.params.name} does not exist`})
+    } else {
+    res.status(200).json({status:200, data: requestedMovie })
+    }
+})
+
 app.get('/movies/update', (req, res) => {
     
 })
