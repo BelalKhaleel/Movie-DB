@@ -45,7 +45,7 @@ app.get('/movies/create', (req, res) => {
     }
     const movie = {title, year, rating}
     movies.push(movie)
-    res.json({status: 200, data: movies})
+    res.status(200).json({status: 200, data: movies})
 })
 
 app.get('/movies/read', (req, res) => {
@@ -80,8 +80,14 @@ app.get('/movies/update', (req, res) => {
     
 })
 
-app.get('/movies/delete', (req, res) => {
-    
+app.get('/movies/delete/:name', (req, res) => {
+    const name = parseInt(req.params.name)
+    if (name > movies.length) {
+        res.status(404).json({status:404, error:true, message:`the movie ${name} does not exist`})
+    } else {
+        movies.splice(name, 1)
+        res.status(200).json({status: 200, data: movies})
+    }
 })
 
 app.listen(3000)
